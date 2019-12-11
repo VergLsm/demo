@@ -1,0 +1,1127 @@
+
+
+
+
+
+
+
+
+<!--  reqeust param: null -->
+<!--  jsp path: /webpage/web/guaranteeQuery.jsp -->
+
+
+<!-- create a randnum no to confict by xiaopei-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"  name="viewport">
+	<meta name="renderer" content="webkit">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<title>中盈盛达保函业务查询</title>
+	<link rel="stylesheet" href="../../front/css/common.css">
+	<link rel="stylesheet" href="../../plug-in/assets/css/viewer.min.css">
+	<style>
+	    * {
+	        margin: 0;
+	        padding: 0;
+	        box-sizing: border-box;
+	    }
+	    body{
+	    	overflow: auto;
+	    	overflow-x: hidden;
+	    }
+	    
+	    .errorTip {
+	    	position: absolute;
+	    	top: -100%;
+	    	height: 40px;
+	    	line-height: 40px;
+	    	width: 100%;
+	    	background-color: #cc5555;
+	    	font-size: 14px;
+	    	color: #fff;
+	    	text-align: center;
+	    	z-index: 9;
+	    	transition: all .3s;
+	    	-webkit-transition: all .3s;
+	    }
+	    
+	    .container {
+	        position: relative;
+	        width: 100%;
+	        min-width: 1024px;
+	        background-color: #fff;
+	    }
+	
+	    .container .top {
+	        width: 100%;
+	        height: 160px;
+	    }
+	
+	    .container .top .topContainer {
+	        min-width: 1024px;
+	        max-width: 1200px;
+	        margin: 0px auto;
+	        height: 100%;
+	        line-height: 120px;
+	        padding: 0px 30px;
+	    }
+	
+	    .queryLogo {
+	        width: 450px;
+	        margin-top: 30px;
+	    }
+	
+	    .container .mainColor {
+	    	width: 100%;
+	        height: 420px;
+	    	background-color: #000;
+	    }
+	
+	    .container .mainImg {
+	        width: 100%;
+	        height: 420px;
+	        margin-top: -420px;
+	        background: url(../../plug-in/assets/images/background.jpg) center center no-repeat;
+	    	background-size: cover;
+	    	opacity: 0.9;
+	    }
+	    
+	    .container .footer {
+	        width: 100%;
+	        padding-top: 90px;
+	    }
+	
+	    .container .footer .footerContainer {
+	        text-align: center;
+	    }
+	
+	    .container .footer .footerContainer p {
+	        line-height: 25px;
+	        font-size: 14px;
+	        color: #999;
+	    }
+	    
+	    .container .mobileQueryBox {
+	    	display: none;
+	    }
+	
+	    .container .queryBox {
+	        position: absolute;
+	        top: -25px;
+	        bottom: 0px;
+	        left: 0px;
+	        right: 0px;
+	        margin: auto;
+	        padding: 45px 55px;
+	        width: 475px;
+	        height: 460px;
+	        background-color: #fff;
+	        box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.2);
+	        border-radius: 10px;
+	    }
+	
+	    .container .queryBox .queryForm {
+	        position: relative;
+	        padding: 25px 0px 0px;
+	        border-top: 1px solid #bbb;
+	    }
+	    
+	
+	    .queryForm .formHeader {
+	        position: absolute;
+	        top: -16px;
+	        left: 0px;
+	        right: 0px;
+	        width: 156px;
+	        margin: auto;
+	        padding: 0px 15px;
+	        font-size: 21px;
+	        color: #555;
+	        background-color: #fff;
+	    }
+	
+	    .queryForm .formTextInput {
+	        margin-bottom: 15px;
+	    }
+	
+	    .queryForm .formTextInput .title {
+	        margin-bottom: 8px;
+	        font-size: 16px;
+	        color: #555;
+	    }
+	
+	    .queryForm .formTextInput .title .redStar {
+	        display: inline-block;
+	        margin-right: 5px;
+	        color: #d33;
+	    }
+	
+	    .queryForm .formTextInput .title .errorMsg {
+	        display: inline-block;
+	        margin-left: 5px;
+	        font-size: 15px;
+	        color: #d33;
+	    }
+	
+	    .queryForm .formTextInput .text {
+	        display: block;
+	        width: 100%;
+	        height: 40px;
+	        padding: 0px 10px;
+	        font-size: 15px;
+	        color: #666;
+	        background-color: #eee;
+	        border: none;
+	        border-radius: 5px;
+	        outline: none;
+	    }
+	
+	    .queryForm .formTextInput.verificationCodeBox {
+	        letter-spacing: -6px;
+	    }
+	
+	    .queryForm .formTextInput.verificationCodeBox .title {
+	        letter-spacing: 0px;
+	    }
+	
+	    .queryForm .formTextInput.verificationCodeBox .text {
+	        display: inline-block;
+	        width: 55%;
+	        letter-spacing: 0px;
+	    }
+	
+	    .queryForm .formTextInput.verificationCodeBox .code {
+	        display: inline-block;
+	        width: 40%;
+	        height: 40px;
+	        margin-left: 5%;
+	        vertical-align: -14px;
+	        cursor: pointer;
+	    }
+	
+	    .queryForm .btnGroup {
+	        margin-top: 25px;
+	        letter-spacing: -6px;
+	    }
+	
+	    .queryForm .btnGroup .btn {
+	        display: inline-block;
+	        height: 45px;
+	        line-height: 45px;
+	        text-align: center;
+	        font-size: 15px;
+	        letter-spacing: 0px;
+	        border-radius: 6px;
+	        cursor: pointer;
+	    }
+	
+	    .queryForm .btnGroup .resetBtn {
+	        width: 30%;
+	        margin-right: 3%;
+	        color: #555 !important;
+	        background-color: #ddd;
+	    }
+	    
+	    .queryForm .btnGroup .resetBtn:hover{
+	    	background-color: #ddd !important;
+	    }
+	
+	    .queryForm .btnGroup .queryBtn {
+	        width: 67%;
+	        color: #fff;
+	        background-color: #ee5151;
+	    }
+	    
+	    .queryForm .btnGroup .queryBtn:hover{
+	    	background-color: #ee5151 !important;
+	    }
+	    
+	    .container .tableBox {
+	        position: absolute;
+	        top: 0px;
+	        bottom: 0px;
+	        left: 100%;
+	        right: 0px;
+	        margin: auto;
+	        padding: 35px 55px;
+	        width: 80%;
+	        max-width: 1200px;
+	        height: 77%;
+	        background-color: #fff;
+	        box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.2);
+	        border-radius: 10px;
+	        overflow: auto;
+	        z-index: 2;
+	        transition: all .3s;
+	        -weibkit-transition: all .3s;
+	    }
+	    
+	    .container .tableBox.active {
+	    	left: 0px;
+	    }
+	    
+	    .tableBox .tableHead {
+	    	position: relative;
+	    }
+	    
+	    .tableBox .tableHead .backBtn {
+	    	position: absolute;
+	    	top: 3px;
+	    	left: 0px;
+	    	padding: 2px 5px;
+	    	font-size: 14px;
+	    	color: #888;
+	    	cursor: pointer;
+	    }
+	    
+	    .tableBox .tableHead .backBtn:hover{
+	    	text-decoration: underline;
+	    }
+	    
+	    .tableBox .tableHead .headTitle {
+	    	margin-bottom: 40px;
+	    	font-size: 23px;
+	    	color: #555;
+	    	text-align: center;
+	    }
+	    
+	    .tableBox .tableForm {
+	    	padding: 10px 0px;
+	    	margin-bottom: 10px;
+	    	border-bottom: 1px dashed #ddd;
+	    	letter-spacing: -5px;
+	    }
+	    
+	    .tableBox .tableForm .tableTextBox {
+	    	margin-bottom: 18px;
+	    	letter-spacing: 0px;
+	    }
+	    
+	    .tableBox .tableForm .tableTextBox .rect {
+	    	display: inline-block;
+	    	width: 8px;
+	    	height: 8px;
+	    	margin-right: 5px;
+	    	background-color: #cc5555;
+	    	vertical-align: middle;
+	    }
+	    
+	    .tableBox .tableForm .tableTextBox .title {
+	    	display: inline-block;
+	    	width: 105px;
+	    	text-align: left;
+	    	font-size: 15px;
+	    	color: #555;
+	    	vertical-align: middle;
+	    }
+	    
+	    .tableBox .tableForm .tableTextBox .content {
+	    	display: inline-block;
+	    	font-size: 15px;
+	    	color: #444;
+	    	vertical-align: middle;
+	    }
+	    
+	    .tableBox .tableForm .tableTextBox.w-50 {
+	    	display: inline-block;
+	    	width: 50%;
+	    }
+	    
+	    .attachmentBox {
+	    	padding: 10px 0px 0px;
+	    }
+	    
+	    .attachmentBox .attachmentTitle {
+	    	margin-bottom: 15px;
+	    	font-size: 16px;
+	    	color: #555;
+	    }
+	    .attachmentBox .attachments {
+	    	display: inline-block;
+	    	margin-bottom: 10px;
+	    	margin-right: 20px;
+	    	cursor: pointer;
+	    }
+	    .attachmentBox .attachments:hover .attachmentName {
+	    	text-decoration: underline;
+	    }
+	    .attachmentBox .attachments .attachmentImg {
+	    	display: inline-block;
+	    	width: 15px;
+	    	margin-right: 3px;
+	    	vertical-align: middle;
+	    }
+	    
+	    .attachmentBox .attachments .attachmentName {
+	    	display: inline-block;
+	    	font-size: 15px;
+	    	color: #666;
+	    }
+	    
+	    .mobileTableBox {
+	    	display: none;
+	    }
+	
+	    @media screen and (min-width: 1200px) {
+	    	.container .mainColor {
+	        	height: 485px;
+		    }
+		    
+	        .container .mainImg {
+	            height: 485px;
+	            margin-top: -485px;
+	        }
+	        
+	        .container .queryBox {
+	            height: 460px;
+	        }
+	
+	        .queryForm .formTextInput {
+	            margin-bottom: 30px;
+	        }
+	
+	        .queryForm .btnGroup {
+	            margin-top: 35px;
+	        }
+	    }
+	    html{
+			font-size: 54.6875%;
+		}
+	    /* 适配手机端样式start */
+	    @media screen and (max-width: 900px) {
+	    	* {
+	    		font-family: Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif;
+	    		-webkit-tap-highlight-color: transparent;
+	    	}
+		    body {
+		    	width: 100%;
+		    	height: 100%;
+		    	overflow: hidden;
+		    }
+		    .container {
+		    	width: 100%;
+		    	min-width: 100%;
+		    	height: 100%;
+		    	overflow-x: hidden;
+		    	overflow-y: auto;
+		    	-webkit-overflow-scrolling: touch;
+		    }
+		    .container .top {
+		    	width: 100%;
+		    	height: auto;
+		    }
+		    .container .top .topContainer {
+		    	width: 100%;
+		    	min-width: 100%;
+		    	max-width: 100%;
+		    	height: auto;
+		    	line-height: normal;
+		    	padding: 1.7rem 0px;
+		    }
+		    .container .top .topContainer .queryLogo {
+		    	display: block;
+		    	width: 80%;
+		    	margin: 0px auto;
+		    }
+		    .container .mainColor {
+		    	height: 44rem;
+		    }
+		    .container .mainImg {
+		    	height: 44rem;
+		    	/* padding: 2rem 0px; */
+		    	margin-top: -44rem;
+		    	background: url(../../plug-in/assets/images/background.jpg) center left no-repeat;
+		    	opacity: 1;
+		    }
+		    .container .footer {
+		    	padding: 1rem;
+		    }
+		    .container .footer .footerContainer p {
+		    	line-height: 2rem;
+		    	font-size: 1.5rem;
+		    }
+		    .container .queryBox {
+		    	display: none;
+		    }
+		    .container .mobileQueryBox {
+		    	display: block;
+		    	width: 100%;
+		    	height: 100%;
+		    	padding: 2.2rem 2rem 2.5rem;
+		    	margin: 0px auto;
+		    	background-color: #fff;
+		    	/* border-radius: 10px; */
+		    }
+		    .container .mobileQueryBox .mobileQueryForm {
+		    	position: relative;
+		    	padding-top: 2.5rem;
+		    	border-top: 1px solid #bbb;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formHeader {
+		    	position: absolute;
+		    	top: -1.5rem;
+		    	left: 0px;
+		    	right: 0px;
+		    	width: 13.2rem;
+		    	padding: 0px .8rem;
+		    	margin: auto;
+		    	font-size: 1.8rem;
+		    	text-align: center;
+		    	background-color: #fff;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput {
+		    	margin-bottom: 1rem;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput .title {
+		    	margin-bottom: .5rem;
+		    	font-size: 1.6rem;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput .title .redStar {
+		    	color: #d33;
+		    	margin-right: .5rem;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput .title .errorMsg{
+		    	margin-left: .5rem;
+		    	font-size: 1.5rem;
+		    	color: #d33;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput .text {
+		    	display: block;
+	        	width: 100%;
+		    	height: 4.2rem;
+		    	padding: 0px 1rem;
+		    	font-size: 1.5rem;
+		    	color: #666;
+		        background-color: #eee;
+		        border: none;
+		        border-radius: 5px;
+		        outline: none;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput.verificationCodeBox {
+		    	letter-spacing: -6px;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput.verificationCodeBox .title {
+		    	letter-spacing: 0px;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput.verificationCodeBox .text {
+		    	display: inline-block;
+		        width: 55%;
+		        letter-spacing: 0px;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .formTextInput.verificationCodeBox .code {
+		    	display: inline-block;
+		    	 width: 40%;
+		    	height: 4.2rem;
+		        margin-left: 5%;
+		        vertical-align: middle;
+		        cursor: pointer;
+		    	vertical-align: -1.5rem;
+		    }
+		
+		    .container .mobileQueryBox .mobileQueryForm .btnGroup {
+		    	margin-top: 2rem;
+		    	letter-spacing: -6px;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .btnGroup .btn {
+		    	display: inline-block;
+		    	height: 4.2rem;
+		    	line-height: 4.2rem;
+		    	font-size: 1.6rem;
+		    	text-align: center;
+		    	letter-spacing: 0px;
+		        border-radius: 6px;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .btnGroup .resetBtn {
+		    	display: none;
+				width: 30%;
+		        margin-right: 3%;
+		        color: #555 !important;
+		        background-color: #ddd;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .btnGroup .resetBtn:hover {
+		    	background-color: #ddd !important;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .btnGroup .queryBtn {
+				width: 100%;
+		        color: #fff;
+		        background-color: #ee5151;
+		    }
+		    .container .mobileQueryBox .mobileQueryForm .btnGroup .queryBtn:hover {
+		    	background-color: #ee5151 !important;
+		    }
+		    .mobileTableBox {
+		    	position: absolute;
+			    top: 0;
+			    bottom: 0;
+			    left: 100%;
+			    right: 0;
+			    display: block;
+			    width: 100%;
+			    height: 100%;
+			    padding: 0px 3%;
+			    background-color: #fff;
+			    overflow: auto;
+			    transition: all .3s;
+		    }
+		    .mobileTableBox.active {
+		    	left: 0px;
+		    }
+		    .mobileTableBox .tableLogo {
+		    	display: block;
+		    	width: 100%;
+		    	padding: 1.7rem 0px;
+		    }
+		    .mobileTableBox .tableLogo .logo{
+		    	display: block;
+		    	width: 60%;
+		    	margin: 0px auto;
+		    }
+		    .mobileTableBox .tableHead {
+		    	position: relative;
+		    	padding-bottom: 1rem;
+		    	margin-bottom: .5rem;
+		    	border-bottom: 1px dashed #ddd;
+		    }
+		    .mobileTableBox .tableHead .backBtn {
+		    	position: absolute;
+		    	top: .3rem;
+		    	left: 0px;
+		    	display: inline-block;
+		    	font-size: 1.6rem;
+		    	color: #666;
+		    }
+		    .mobileTableBox .tableHead .headTitle{
+		    	text-align: center;
+		    	font-size: 2rem;
+		    	color: #555;
+		    }
+		    .mobileTableBox .tableForm {
+		    	padding: 1rem 0px;
+		    	border-bottom: 1px dashed #ddd;
+		    }
+		    .mobileTableBox .tableForm .tableTextBox {
+		    	display: flex;
+		    	margin-bottom: 1rem;
+		    }
+		    .mobileTableBox .tableForm .tableTextBox .title {
+		    	display: inline-flex;
+		    	white-space: nowrap;
+		    	font-size: 1.6rem;
+		    	color: #666;
+		    }
+		    .mobileTableBox .tableForm .tableTextBox .content {
+		    	display: inline-flex;
+		    	justify-content: flex-end;
+		    	width: 100%;
+		    	text-align: right;
+		    	font-size: 1.6rem;
+		    	color: #444;
+		    }
+		    .mobileTableBox .attachmentBox {
+		    	padding: 1.5rem 0px 0px;
+		    }
+		    .mobileTableBox .attachmentBox .attachmentTitle {
+		    	font-size: 1.6rem;
+		    	color: #555;
+		    }
+		    .mobileTableBox .attachmentBox .attachments {
+		    	display: flex;
+		    	align-items: center;
+		    	margin: 0px 0px .6rem;
+		    }
+		    .mobileTableBox .attachmentBox .attachments .attachmentImg {
+		    	display: inline-flex;
+			    width: 2rem;
+			    height: 2rem;
+			    margin-right: .5rem;
+		    }
+		    .mobileTableBox .attachmentBox .attachments .attachmentName {
+		    	display: inline-flex;
+			    width: 100%;
+			    margin: 0 0 .8rem;
+			    font-size: 1.5rem;
+			    color: #666;
+		    }
+		    .mobileTableBox .attachmentBox .attachments:hover .attachmentName {
+		    	text-decoration: none;
+		    }
+	    }
+	    
+	    @media screen and (min-width: 320px) {
+		    html{
+		       	font-size: 54.6875%;
+		    }
+		}
+		@media screen and (min-width: 375px) {
+		    html{
+		        font-size: 58.59375%;
+		    }
+		}
+		@media screen and (min-width: 414px) {
+		    html{
+		        font-size: 62.5%;
+		    }
+		}
+	    /* 适配手机端样式end */
+	</style>
+</head>
+<body>
+<div class="errorTip">暂无该信息</div>
+<div class="container">
+    <div class="top">
+        <div class="topContainer">
+            <img class="queryLogo" src="../../plug-in/assets/images/joinshare_logo_stock_code.png"/>
+        </div>
+    </div>
+    <div class="mainColor"></div>
+    <div class="mainImg">
+    	<div class="mobileQueryBox">
+    		<form class="mobileQueryForm">
+	            <p class="formHeader">保函业务查询</p>
+	            <div class="formTextInput">
+	                <p class="title"><span class="redStar">*</span><span class="titleText">被担保人</span>：</p>
+	                <input class="text mobileProjectName" type="text" placeholder="请输入"/>
+	            </div>
+	            
+	            <div class="formTextInput">
+	                <p class="title"><span class="redStar">*</span><span class="titleText">保函查询号</span>：</p>
+	                <input class="text mobileUniqueNumber" type="text" placeholder="请输入"/>
+	            </div>
+	            <div class="formTextInput verificationCodeBox">
+	                <p class="title"><span class="redStar">*</span><span class="titleText">验证码</span>：</p>
+	                <input class="text mobileVerificationCode" type="text" placeholder="请输入"/>
+	                <img class="code" src="../../verificationCodeController/imgmaker" onclick="testCodeChange(this)"/>
+	            </div>
+	            <div class="btnGroup">
+	                <div class="queryBtn btn">立即查询</div>
+	            </div>
+	        </form>
+    	</div>
+    </div>
+    <div class="footer">
+        <div class="footerContainer">
+            <p>座机：<a href="tel:0757-82369365">0757-82369365</a>&nbsp;&nbsp;手机：<a href="tel:13928549788">13928549788</a></p>
+            <p>地址：中国广东省佛山市顺德区岭南大道南2号中欧中心D栋2楼</p>
+            <p>Copyright © 2017 - 2019 中盈盛达 粤ICP备13017201号</p>
+        </div>
+    </div>
+    <div class="queryBox">
+        <form class="queryForm">
+            <p class="formHeader">保函业务查询</p>
+            <div class="formTextInput">
+                <p class="title"><span class="redStar">*</span><span class="titleText">被担保人</span>：</p>
+                <input class="text projectName" type="text" placeholder="请输入"/>
+            </div>
+            
+            <div class="formTextInput">
+                <p class="title"><span class="redStar">*</span><span class="titleText">保函查询号</span>：</p>
+                <input class="text uniqueNumber" type="text" placeholder="请输入"/>
+            </div>
+            <div class="formTextInput verificationCodeBox">
+                <p class="title"><span class="redStar">*</span><span class="titleText">验证码</span>：</p>
+                <input class="text verificationCode" type="text" placeholder="请输入"/>
+                <img class="code" src="../../verificationCodeController/imgmaker" onclick="testCodeChange(this)"/>
+            </div>
+            <div class="btnGroup">
+                <div class="resetBtn btn">重置</div>
+                <div class="queryBtn btn">立即查询</div>
+            </div>
+        </form>
+    </div>
+    <div class="tableBox">
+    	<div class="tableHead">
+    		<div class="backBtn">&lt;&nbsp;返回</div>
+    		<p class="headTitle">保函业务信息</p>
+    	</div>
+    	<div class="tableForm">
+    		<div class="tableTextBox" data-name="projectName">
+    			<div class="rect"></div>
+    			<div class="title">被担保人：</div>
+    			<div class="content"></div>
+    		</div>
+    		<div class="tableTextBox" data-name="unitName">
+    			<div class="rect"></div>
+    			<div class="title">保函受益人：</div>
+    			<div class="content"></div>
+    		</div>
+    		<div class="notMush hiddenDom">
+	    		<div class="tableTextBox" data-name="financingMoney">
+	    			<div class="rect"></div>
+	    			<div class="title">保函金额：</div>
+	    			<div class="content"></div>
+	    		</div>
+	    		<div class="tableTextBox w-50" data-name="financingBegindate">
+	    			<div class="rect"></div>
+	    			<div class="title">开始日：</div>
+	    			<div class="content"></div>
+	    		</div>
+	    		<div class="tableTextBox w-50" data-name="financingEnddate">
+	    			<div class="rect"></div>
+	    			<div class="title">到期日：</div>
+	    			<div class="content"></div>
+	    		</div>
+	    		
+    		</div>
+    		
+    		<div class="tableTextBox" data-name="guaranteeOpenOrg">
+    			<div class="rect"></div>
+    			<div class="title">保函开立机构：</div>
+    			<div class="content"></div>
+    		</div>
+    		<div class="isMush hiddenDom"></div>
+    	</div>
+    	<div class="attachmentBox">
+    		<div class="attachmentTitle">保函原件：</div>
+   			
+    	</div>
+    </div>
+    <div class="mobileTableBox">
+    	<div class="tableLogo">
+            <img class="logo" src="../../plug-in/assets/images/joinshare_logo_1.png"/>
+        </div>
+    	<div class="tableHead">
+    		<div class="backBtn">&lt;&nbsp;返回</div>
+    		<p class="headTitle">保函业务信息</p>
+    	</div>
+    	<div class="tableForm">
+    		<div class="tableTextBox" data-name="projectName">
+    			<div class="title">被担保人：</div>
+    			<div class="content">发沙发斯蒂芬阿斯蒂芬</div>
+    		</div>
+    		<div class="tableTextBox" data-name="unitName">
+    			<div class="title">保函受益人：</div>
+    			<div class="content"></div>
+    		</div>
+    		<div class="notMush hiddenDom">
+	    		<div class="tableTextBox" data-name="financingMoney">
+	    			<div class="title">保函金额：</div>
+	    			<div class="content"></div>
+	    		</div>
+	    		<div class="tableTextBox" data-name="financingBegindate">
+	    			<div class="title">开始日：</div>
+	    			<div class="content"></div>
+	    		</div>
+	    		<div class="tableTextBox" data-name="financingEnddate">
+	    			<div class="title">到期日：</div>
+	    			<div class="content"></div>
+	    		</div>
+	    		
+    		</div>
+    		
+    		<div class="tableTextBox" data-name="guaranteeOpenOrg">
+    			<div class="title">保函开立机构：</div>
+    			<div class="content"></div>
+    		</div>
+    		<div class="isMush hiddenDom"></div>
+    	</div>
+    	<div class="attachmentBox">
+    		<div class="attachmentTitle">保函原件：</div>
+   			
+    	</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../plug-in/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../plug-in/assets/js/viewer.min.js"></script>
+<script>
+$(function () {
+	//PC端重置按钮点击事件
+	$(".queryBox .resetBtn").on("click", function () {
+		$(".queryForm")[0].reset();
+	});
+	
+	// PC端查询按钮点击事件
+	$(".queryBox .queryBtn").on("click", function () {
+		getQuery("0",this);
+	});
+       
+	// 手机端查询按钮点击事件
+	$(".mobileQueryBox .queryBtn").on("click", function () {
+		getQuery("1",this);
+	});
+
+	// PC端文本框输入事件
+	$(".queryForm .formTextInput").each(function () {
+		$(this).find(".text").on("input", function () {
+			$(this).prev().find(".errorMsg").remove();
+		});
+	});
+	
+	// 手机端文本框输入事件
+	$(".mobileQueryForm .formTextInput").each(function () {
+		$(this).find(".text").on("input", function () {
+			$(this).prev().find(".errorMsg").remove();
+		});
+	});
+	
+	//PC端返回事件
+	$(".tableBox .tableHead .backBtn").on("click",function(){
+		$(".tableBox").removeClass("active");
+		$(".tableBox .isMush").addClass("hiddenDom");
+		$(".tableBox .notMush").addClass("hiddenDom");
+		$(".tableBox .isMush").empty();
+		emptyTable(this);
+	});
+	
+	//手机端返回事件
+	$(".mobileTableBox .tableHead .backBtn").on("click",function(){
+		$(".mobileTableBox").removeClass("active");
+		$(".mobileTableBox .isMush").addClass("hiddenDom");
+		$(".mobileTableBox .notMush").addClass("hiddenDom");
+		$(".mobileTableBox .isMush").empty();
+		emptyTable(this);
+	});
+});
+
+var errorTimeout = null;
+//查询事件
+function getQuery(type,obj){
+	if(!$(obj).hasClass("disabled")){
+		$(obj).addClass("disabled");
+		$(obj).text("正在查询...");
+		var input = $(obj).parent().parent().find(".formTextInput");
+		var form = $(obj).parent().parent();
+	   	var errorNum = 0;
+	    $(input).each(function () {
+	        if ($(this).find(".text").val() == "") {
+	            errorNum++;
+	            $(this).find(".title").find(".errorMsg").remove();
+	            $(this).find(".title").append('<span class="errorMsg">请输入' + $(this).find(".titleText").text() + '</span>');
+	        }
+	    });
+	    // 没有填写错误，则进行查询
+	    if (errorNum == 0) {
+	        var verificationCode;
+	        if(type == "0"){//PC端
+	        	verificationCode = $(".verificationCode").val();
+	        }else if(type == "1"){//手机端
+	        	verificationCode = $(".mobileVerificationCode").val();
+	        }
+	        $.ajax({
+	            type: 'POST',
+	            url: '../../verificationCodeController/getValidateCode?verificationCode=' + verificationCode,
+	            dataType: 'json',
+	            success: function (data) {
+	                if(data.obj == 'Y'){
+	                    var projectName;
+	                    //var guaranteeNumber;
+	                    var uniqueNumber;
+	                    if(type == "0"){//PC端
+	                    	projectName = $(".projectName").val();
+	                    	//guaranteeNumber = $(".guaranteeNumber").val();
+	                    	uniqueNumber = $(".uniqueNumber").val();
+	                    }else if(type == "1"){//手机端
+	                    	projectName = $(".mobileProjectName").val();
+	                    	//guaranteeNumber = $(".mobileGuaranteeNumber").val();
+	                    	uniqueNumber = $(".mobileUniqueNumber").val();
+	                    }
+	                    $.ajax({
+	                    	url: "../../verificationCodeController/quicklyCheckAndShowProjectInfoPage",
+	                    	data: {
+	                    		projectName: projectName,
+	                    		//guaranteeNumber: guaranteeNumber,
+	                    		uniqueNumber: uniqueNumber
+	                    	},
+	                    	type: "post",
+	                    	dataType: 'json',
+	                    	success: function(d){
+	                    		console.log(d);
+	                    		$(obj).removeClass("disabled");
+	                			$(obj).text("立即查询");
+	                    		if(d.success){
+	                    			var tableBox;
+	                    			if(type == "0"){//PC端
+                    					tableBox = $(".tableBox");
+                    				}else if(type == "1"){//手机端
+                    					tableBox = $(".mobileTableBox");
+                    				}
+	                    			if(d.obj.length != 0){
+	                    				var dataVoList = d.obj[0].dataVoList;
+	                    				if(d.obj[0].isMsuh == "1"){
+	                    					$(".notMush").removeClass("hiddenDom");
+	                    				}else if(d.obj[0].isMsuh == "2"){
+	                    					$(".isMush").removeClass("hiddenDom");
+	                    				}
+	                    				//$(".hiddenDom").remove();
+	                    				$(tableBox).find(".tableTextBox").each(function(i,e){//项目信息
+	                        				var value = d.obj[0][$(this).attr("data-name")];
+	                        				if(value == null){
+	                        					value = "";
+	                        				}else if($(this).attr("data-name") == "financingBegindate" || $(this).attr("data-name") == "financingEnddate"){
+	                        					value = getNowFormatDate(value);
+	                        				}else if($(this).attr("data-name") == "financingMoney"){
+	                        					value = value.toFixed(6)+"万元";
+	                        				}
+	                        				$(this).find(".content").text(value);
+	                        			});
+	                    				if(d.obj[0].isMsuh == "2"){
+	                    					var expandList = d.obj[0].expandList;
+	                    					for(var i = 0; i < expandList.length; i++){
+	                    						var financingBegindate = expandList[i].financingBegindate == null? "" : getNowFormatDate(expandList[i].financingBegindate);
+	                    						var financingEnddate = expandList[i].financingEnddate == null? "" : getNowFormatDate(expandList[i].financingEnddate);
+	                    						if(type == "0"){//PC端
+	                    							var html = '<div class="tableTextBox">'
+			                			    						+'<div class="title">'+expandList[i].financingName+'</div>'
+			            			    							+'<div class="content"></div>'
+			           			    							+'</div>'
+			           			    							+'<div class="tableTextBox w-50">'
+			                			    						+'<div class="rect"></div>'
+			                			    						+'<div class="title">保函金额：</div>'
+			            			    							+'<div class="content">'+expandList[i].financingMoney.toFixed(6)+'万元</div>'
+			           			    							+'</div>'
+			           			    							+'<div class="tableTextBox w-50">'
+			           			    								+'<div class="rect"></div>'
+			           			    								+'<div class="title">开始日：</div>'
+			           			    								+'<div class="content">'+financingBegindate+'</div>'
+			       			    								+'</div>'
+			       			    								+'<div class="tableTextBox w-50" data-name="financingEnddate">'
+			       			    									+'<div class="rect"></div>'
+			       			    									+'<div class="title">到期日：</div>'
+			       			    									+'<div class="content">'+financingEnddate+'</div>'
+			  			    									+'</div>';
+			  			    									/*+'<div class="tableTextBox w-50">'
+			  			    										+'<div class="rect"></div>'
+			  			    										+'<div class="title">担保方式：</div>'
+			  			    										+'<div class="content">'+expandList[i].guaranteeFormName+'</div>'
+			  			    									+'</div>'*/
+	                    						}else if(type == "1"){//手机端
+	                    							var html ='<div class="tableTextBox">'
+				                   				    			+'<div class="title">'+expandList[i].financingName+'</div>'
+				                   				    			+'<div class="content"></div>'
+				                   				    		+'</div>'
+				                   				    		+'<div class="tableTextBox">'
+				                   				    			+'<div class="title">保函金额：</div>'
+				                   				    			+'<div class="content">'+expandList[i].financingMoney.toFixed(6)+'万元</div>'
+				                   				    		+'</div>'
+				                   				    		+'<div class="tableTextBox">'
+				                   				    			+'<div class="title">开始日：</div>'
+				                   				    			+'<div class="content">'+financingBegindate+'</div>'
+				                   				    		+'</div>'
+				                   				    		+'<div class="tableTextBox">'
+				                   				    			+'<div class="title">到期日：</div>'
+				                   				    			+'<div class="content">'+financingEnddate+'</div>'
+				                   				    		+'</div>';
+				                   				    		/*+'<div class="tableTextBox">'
+				                   				    			+'<div class="title">担保方式：</div>'
+				                   				    			+'<div class="content">'+expandList[i].guaranteeFormName+'</div>'
+				                   				    		+'</div>'*/
+	                    						}
+          			    						$(".isMush").append(html);
+	                    					}
+	                    				}
+	                        			
+	                        			if(dataVoList.length != 0){//附件
+	                        				$("body").append('<ul class="attachmentImgBox" style="display:none;"></ul>');
+		                        			for(var i = 0; i < dataVoList.length; i++){
+		                        				if(dataVoList[i].attachType == "img"){
+		                        					var html = '<div class="attachments" onclick="showImg(\''+dataVoList[i].id+'\')">'
+		                        		    						+'<img class="attachmentImg" src="../../attachController.do?getThumbnailImage&aId='+dataVoList[i].id+'" />'
+		                        		    						+'<p class="attachmentName">'+dataVoList[i].name+'</p>'
+		                       		    						+'</div>'
+		                        		        	$(".attachmentBox").append(html);
+		                       		    						
+		                       		    			var li = '<li>'
+		                       		    						+'<img data-id="'+dataVoList[i].id+'" data-original="../../attachController.do?getPlainImage&aId='+dataVoList[i].id+'" src="../../attachController.do?getThumbnailImage&aId='+dataVoList[i].id+'" />'
+	                       		    						+'</li>';
+	                       		    				$(".attachmentImgBox").append(li);
+		                        				}
+		                        			}
+		                        			var viewerModal = $(".attachmentImgBox")[0];
+			                    			var viewer = new Viewer(viewerModal,{
+			                    				url: 'data-original',
+			                    				loading: true
+			                    			});
+	                        			}
+	                        			$(tableBox).addClass("active");
+		                    			$(form)[0].reset();
+	                    			}else{
+	                    				if(errorTimeout != null){
+	                    					clearTimeout(errorTimeout);
+	                    				}
+	                    				$(".errorTip").css("top","0px");
+	                    				errorTimeout = setTimeout(function(){
+	                    					$(".errorTip").css("top","-100%");
+	                    				},2000);
+	                    			}
+	                    			$(form).find(".verificationCodeBox").find("img").click();
+	                    		}
+	                    	}
+	                    });
+	                }else{
+	                	$(obj).removeClass("disabled");
+	        			$(obj).text("立即查询");
+	                	$(form).find(".verificationCodeBox").find(".title").find(".errorMsg").remove();
+	                	$(form).find(".verificationCodeBox").find(".title").append('<span class="errorMsg">请输入正确的验证码</span>');
+	                	$(form).find(".code").click();
+	                }
+	            }
+	        });
+	    }else{
+	    	$(obj).removeClass("disabled");
+			$(obj).text("立即查询");
+	    }
+	}
+}
+
+//清空查询结果
+function emptyTable(obj){
+	var tableForm = $(obj).parent().next();
+	var attachment = $(obj).parent().siblings(".attachmentBox");
+	$(tableForm).find(".tableTextBox").each(function(){
+		$(this).find(".content").text("");
+	});
+	$(attachment).find(".attachments").remove();
+	$(".attachmentImgBox").remove();
+}
+
+// 改变图形验证码
+function testCodeChange(img) {
+	$(img).attr("src", "../../verificationCodeController/imgmaker?vcode=" + Math.random());
+}
+
+function showImg(id){
+	$(".attachmentImgBox").find("img[data-id='"+id+"']").click();
+}
+
+//日期格式化：把毫秒转为YYYY-MM-DD
+function getNowFormatDate(time,format){
+    var date = new Date(time);
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    if (hour >= 0 && hour <= 9) {
+    	hour = "0" + hour;
+    }
+    if (minute >= 0 && minute <= 9) {
+    	minute = "0" + minute;
+    }
+    var currentdate;
+    if(format == "yyyy-mm-dd hh:mm"){
+    	currentdate = year + seperator1 + month + seperator1 + strDate + " " + hour + seperator2 + minute;
+    }else{
+    	currentdate = year + seperator1 + month + seperator1 + strDate;
+    }
+    return currentdate;
+}
+</script>
+</body>
+</html>
