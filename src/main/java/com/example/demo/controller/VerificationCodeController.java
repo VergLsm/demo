@@ -43,15 +43,37 @@ public class VerificationCodeController {
     public Map<String, Object> quicklyCheckAndShowProjectInfoPage(@RequestParam String projectName,
             @RequestParam String uniqueNumber) {
 
+       //附件
         Map<String, Object> dataVoMap = new HashMap<String, Object>();
         dataVoMap.put("attachType", "img");
-        
+        dataVoMap.put("id", "img_id");
+        dataVoMap.put("name", "img_name");
+        //附件，可以有多个，图片
         List<Object> dataVoList = new ArrayList<>();
         dataVoList.add(dataVoMap);
 
+        //保函信息
+        Map<String, Object> expandMap = new HashMap<String, Object>();
+        expandMap.put("financingBegindate", 1573401600000L);
+        expandMap.put("financingEnddate", 1576080000000L);
+        expandMap.put("financingName", "我保你大保函1号");
+        expandMap.put("financingMoney", 2333);
+        
+        List<Object> expandList = new ArrayList<>();
+        expandList.add(expandMap);
+
         Map<String, Object> objMap = new HashMap<String, Object>();
-        objMap.put("isMsuh", "1");
+        objMap.put("isMsuh", "2");
         objMap.put("dataVoList", dataVoList);
+        objMap.put("expandList", expandList);
+        objMap.put("projectName", "田鸡");
+        objMap.put("unitName", "小明");
+        objMap.put("guaranteeOpenOrg", "唔知咩公司");
+        objMap.put("financingBegindate", 1573401600000L);
+        objMap.put("financingEnddate", 1576080000000L);
+        objMap.put("financingName", "我保你大保函1号");
+        objMap.put("financingMoney", 2222);
+
 
         List<Object> objList = new ArrayList<>();
         objList.add(objMap);

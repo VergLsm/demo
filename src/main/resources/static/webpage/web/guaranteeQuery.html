@@ -1024,13 +1024,13 @@ function getQuery(type,obj){
 		                        			for(var i = 0; i < dataVoList.length; i++){
 		                        				if(dataVoList[i].attachType == "img"){
 		                        					var html = '<div class="attachments" onclick="showImg(\''+dataVoList[i].id+'\')">'
-		                        		    						+'<img class="attachmentImg" src="../../attachController.do?getThumbnailImage&aId='+dataVoList[i].id+'" />'
+		                        		    						+'<img class="attachmentImg" src="../../attachController/getThumbnailImage?aId='+dataVoList[i].id+'" />'
 		                        		    						+'<p class="attachmentName">'+dataVoList[i].name+'</p>'
 		                       		    						+'</div>'
 		                        		        	$(".attachmentBox").append(html);
 		                       		    						
 		                       		    			var li = '<li>'
-		                       		    						+'<img data-id="'+dataVoList[i].id+'" data-original="../../attachController.do?getPlainImage&aId='+dataVoList[i].id+'" src="../../attachController.do?getThumbnailImage&aId='+dataVoList[i].id+'" />'
+		                       		    						+'<img data-id="'+dataVoList[i].id+'" data-original="../../attachController/getPlainImage?aId='+dataVoList[i].id+'" src="../../attachController.do?getThumbnailImage&aId='+dataVoList[i].id+'" />'
 	                       		    						+'</li>';
 	                       		    				$(".attachmentImgBox").append(li);
 		                        				}
