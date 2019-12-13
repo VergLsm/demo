@@ -7,15 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,20 +27,13 @@ public class VerificationCodeController {
     private Producer captchaProducer;
 
     @ResponseBody
-    @RequestMapping("/imgmaker")
-    public void imgmaker(HttpSession httpSession, HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/imgmaker", produces = MediaType.IMAGE_JPEG_VALUE)
+    public BufferedImage imgmaker(HttpSession httpSession) {
         //生成验证码
         String capText = captchaProducer.createText();
         httpSession.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
         //向客户端写出
-        BufferedImage bi = captchaProducer.createImage(capText);
-        ServletOutputStream out = response.getOutputStream();
-        ImageIO.write(bi, "jpg", out);
-        try {
-            out.flush();
-        } finally {
-            out.close();
-        }
+        return captchaProducer.createImage(capText);
     }
 
     @ResponseBody
